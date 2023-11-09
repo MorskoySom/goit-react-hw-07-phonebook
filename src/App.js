@@ -1,21 +1,27 @@
-import { ContactList } from "ContactsList/ContactsList";
-import { ContactForm } from "ContactForm/ContactForm";
-import { Filter } from "Filter/Filter";
-import { Container } from 'App.styled'
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchTasks } from "./Redux/operations";
+import { getItems } from "./Redux/selectors";
 
 export const App = () => {
+  const dispatch = useDispatch();
+  // Получаем части состояния
+  const { data, isLoading, error } = useSelector(getItems);
+  // Вызываем операцию
 
+  useEffect(() => {
+    dispatch(fetchTasks());
+  }, [dispatch]);
+
+  // Рендерим разметку в зависимости от значений в состоянии
   return (
-    <Container>
-      <h1>Phonebook</h1>
-      <ContactForm />
-      <h2>Contacts</h2>
-      <Filter />
-      <ContactList />
-    </Container>
-  )
-}
-
+    <div>
+      {isLoading && <p>Loading tasks...</p>}
+      {error && <p>{error}</p>}
+      <p>{data.length > 0 && JSON.stringify(data, null, 2)}</p>
+    </div>
+  );
+};
 
 
 

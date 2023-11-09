@@ -6,7 +6,6 @@ import { Contact } from "../Element/Element";
 export const ContactList = () => {
     const persons = useSelector(state => state.contacts.data);
     const filter = useSelector(state => state.contacts.filter);
-    console.log(filter);
 
     const getVisibleContacts = () => {
         return persons.filter(person =>
