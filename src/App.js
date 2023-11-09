@@ -6,7 +6,7 @@ import { getItems } from "./Redux/selectors";
 export const App = () => {
   const dispatch = useDispatch();
   // Получаем части состояния
-  const { data, isLoading, error } = useSelector(getItems);
+  const { items, isLoading, error } = useSelector(getItems);
   // Вызываем операцию
 
   useEffect(() => {
@@ -18,7 +18,7 @@ export const App = () => {
     <div>
       {isLoading && <p>Loading tasks...</p>}
       {error && <p>{error}</p>}
-      <p>{data.length > 0 && JSON.stringify(data, null, 2)}</p>
+      <p>{items.length > 0 && JSON.stringify(items, null, 2)}</p>
     </div>
   );
 };
