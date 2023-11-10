@@ -4,7 +4,7 @@ import * as Yup from 'yup';
 import { Forma, Pole } from "./ContactForm.styled";
 import { useSelector, useDispatch } from "react-redux";
 import { addContact } from '../Redux/operations';
-import { getContacts } from "Redux/selectors";
+import { selectContacts } from "Redux/selectors";
 
 const FormSchema = Yup.object().shape({
     name: Yup.string()
@@ -23,7 +23,7 @@ const FormSchema = Yup.object().shape({
 
 export const ContactForm = () => {
     const dispatch = useDispatch();
-    const contacts = useSelector(getContacts);
+    const contacts = useSelector(selectContacts);
 
     const checkIfContactExists = (name, phone) => {
         const existingContact = contacts.find(
