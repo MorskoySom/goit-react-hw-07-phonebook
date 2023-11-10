@@ -15,6 +15,7 @@ export const ContactList = () => {
 
     const visibleContacts = getVisibleContacts();
 
+
     return (
         <ul>
             {visibleContacts.map(person => (
