@@ -13,7 +13,7 @@ const FormSchema = Yup.object().shape({
             /^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$/,
             "Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
         ),
-    number: Yup.string()
+    phone: Yup.string()
         .matches(
             /\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}/,
             'Phone number must be digits and can contain spaces, dashes, parentheses and can start with +'
@@ -25,30 +25,30 @@ export const ContactForm = () => {
     const dispatch = useDispatch();
     const contacts = useSelector(getContacts);
 
-    const checkIfContactExists = (name, number) => {
+    const checkIfContactExists = (name, phone) => {
         const existingContact = contacts.find(
             contact => contact.name.toLowerCase() === name.toLowerCase() ||
-                contact.number === number
+                contact.phone === phone
         );
         return existingContact;
     }
 
     const handleAddContact = (newContact) => {
-        const { name, number } = newContact;
+        const { name, phone } = newContact;
 
-        if (checkIfContactExists(name, number)) {
-            alert(`Contact with name ${name} or number ${number} already exists!`);
+        if (checkIfContactExists(name, phone)) {
+            alert(`Contact with name ${name} or number ${phone} already exists!`);
             return;
         }
 
-        dispatch(addContact(newContact));
+        dispatch(addContact({ name, phone }));
     }
 
     return (
         <Formik
             initialValues={{
                 name: '',
-                number: ''
+                phone: ''
             }}
             validationSchema={FormSchema}
             onSubmit={(values, actions) => {
@@ -68,7 +68,7 @@ export const ContactForm = () => {
                     <div>
                         <Pole>
                             Number
-                            <Field id="lastName" type="tel" name="number" />
+                            <Field id="lastName" type="tel" name="phone" />
                             <ErrorMessage name="number" style={{ color: 'red' }} />
                         </Pole>
                     </div>
