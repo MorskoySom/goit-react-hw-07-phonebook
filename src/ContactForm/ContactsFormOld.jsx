@@ -3,9 +3,8 @@ import { Formik, Field, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import { Forma, Pole } from "./ContactForm.styled";
 import { useSelector, useDispatch } from "react-redux";
-import { addContact } from '../Redux/operations';
+import { addContact } from '../Redux/contactsSlice';
 import { nanoid } from "nanoid";
-import { getContacts } from "Redux/selectors";
 
 const FormSchema = Yup.object().shape({
     name: Yup.string()
@@ -24,7 +23,7 @@ const FormSchema = Yup.object().shape({
 
 export const ContactForm = () => {
     const dispatch = useDispatch();
-    const contacts = useSelector(getContacts);
+    const contacts = useSelector(state => state.contacts.data);
 
     const checkIfContactExists = (name, number) => {
         const existingContact = contacts.find(
@@ -42,7 +41,7 @@ export const ContactForm = () => {
             return;
         }
 
-        dispatch(addContact(newContact));
+        dispatch(addContact({ ...newContact, id: nanoid() }));
     }
 
     return (
