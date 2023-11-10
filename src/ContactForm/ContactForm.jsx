@@ -4,7 +4,6 @@ import * as Yup from 'yup';
 import { Forma, Pole } from "./ContactForm.styled";
 import { useSelector, useDispatch } from "react-redux";
 import { addContact } from '../Redux/operations';
-import { nanoid } from "nanoid";
 import { getContacts } from "Redux/selectors";
 
 const FormSchema = Yup.object().shape({
