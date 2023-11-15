@@ -1,7 +1,7 @@
 import React from "react";
 import { Formik, Field, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
-import { Forma, Pole } from "./ContactForm.styled";
+import { Forma, Pole, AddBTN } from "./ContactForm.styled";
 import { useSelector, useDispatch } from "react-redux";
 import { addContact } from '../Redux/operations';
 import { selectContacts } from "Redux/selectors";
@@ -12,7 +12,8 @@ const FormSchema = Yup.object().shape({
         .matches(
             /^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$/,
             "Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
-        ),
+        )
+        .required('Name is required'),
     phone: Yup.string()
         .matches(
             /\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}/,
@@ -62,18 +63,18 @@ export const ContactForm = () => {
                         <Pole>
                             Contact name
                             <Field id="firstName" name="name" />
-                            <ErrorMessage name="name" style={{ color: 'red' }} />
                         </Pole>
                     </div>
+                    <ErrorMessage name="name" />
                     <div>
                         <Pole>
                             Number
                             <Field id="lastName" type="tel" name="phone" />
-                            <ErrorMessage name="number" style={{ color: 'red' }} />
                         </Pole>
                     </div>
+                    <ErrorMessage name="phone" />
                     <div>
-                        <button type="submit">Add contact</button>
+                        <AddBTN type="submit">Add contact</AddBTN>
                     </div>
                 </Forma>
             </Form>

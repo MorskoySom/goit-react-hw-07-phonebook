@@ -1,5 +1,5 @@
 import React from "react";
-import { Item, Terminator } from "./Element.styled";
+import { Item, Terminator } from "./Contact.styled";
 import { deleteContact } from '../Redux/operations';
 import { useDispatch } from 'react-redux';
 
